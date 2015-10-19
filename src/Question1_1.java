@@ -16,9 +16,14 @@ import java.io.IOException;
 
 public class Question1_1 {
 	public static class MyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
-		@Override
+
+        private  IntWritable val = new IntWritable(1);
+
+        @Override
 		protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			
+			for (String word : value.toString().split("\\s+")) {
+                context.write(new Text(word), val);
+            }
 		}
 	}
 

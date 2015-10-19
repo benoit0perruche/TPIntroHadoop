@@ -28,9 +28,17 @@ public class Question1_1 {
 	}
 
 	public static class MyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+        private  IntWritable val = new IntWritable(1);
+
 		@Override
 		protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-				
+            int sum = 0;
+            for (IntWritable i : values) {
+                sum += i.get();
+            }
+            val.set(sum);
+            context.write(key, val);
 		}
 	}
 
